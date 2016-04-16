@@ -17,6 +17,6 @@ Route::get('/{route}/{api?}', 'Documentation@get');
 
 
 Route::get('/{route}/{api}.{format}', 'API@get');
-Route::post('/{route}/{api}', 'API@post');
-Route::put('/{route}/{api}', 'API@put');
-Route::delete('/{route}/{api}', 'API@delete');
+Route::post('/{route}/{api}.{?format}', 'API@post');
+Route::put('/{route}/{api}.{?format}', 'API@put');
+Route::delete('/{route}/{api}.{?format}', 'API@delete');

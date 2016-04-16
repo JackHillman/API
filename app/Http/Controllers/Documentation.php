@@ -18,7 +18,7 @@ class Documentation extends Controller
       $example = glob($thisPath . '/example.*');
 
       $desc = (file_exists($desc)) ? file_get_contents($desc) : null;
-      $exmaple = (file_exists($exmaple)) ? file_get_contents($exmaple) : null;
+      $example = (file_exists($example)) ? file_get_contents($example) : null;
 
       $listing = false;
       $endpoint = ($api) ? '/'.$route.'/'.$api : null;
