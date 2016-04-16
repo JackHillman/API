@@ -1,0 +1,60 @@
+.examples {
+  .tabheading {
+    padding: 0;
+    margin: 0;
+    display: block;
+
+    li {
+      list-style: none;
+      display: inline-block;
+      padding: 10px 15px 10px 15px;
+      background: #eee;
+      margin: 0;
+      margin-right: -5px;
+      border: 1px solid #ccc;
+      border-bottom: 0;
+      cursor: pointer;
+      text-transform: uppercase;
+
+      &:first-of-type {
+        border-radius: 3px 0 0 0;
+      }
+
+      &:last-of-type {
+        border-radius: 0 3px 0 0;
+      }
+
+      &.selected {
+        background: #e0e0e0;
+        cursor: default;
+      }
+    }
+  }
+
+  .example {
+    pre {
+      margin: 0;
+      border-color: #ccc;
+      border-radius: 0 3px 3px 3px;
+    }
+  }
+}
+
+section.request {
+  padding: 40px 0 100px !important;
+
+  h2 {
+    font-weight: 300;
+    font-style: 4em;
+    margin: 0 0 30px 0;
+
+    &.GET { color: #659BE0; }
+    &.POST { color: #66E065; }
+    &.PUT { color: #B265E0; }
+    &.DELETE { color: #D83838; }
+  }
+
+  table {
+    margin-top: 60px;
+  }
+}

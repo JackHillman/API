@@ -5749,4 +5749,198 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+.examples .tabheading {
+  padding: 0;
+  margin: 0;
+  display: block; }
+  .examples .tabheading li {
+    list-style: none;
+    display: inline-block;
+    padding: 10px 15px 10px 15px;
+    background: #eee;
+    margin: 0;
+    margin-right: -5px;
+    border: 1px solid #ccc;
+    border-bottom: 0;
+    cursor: pointer;
+    text-transform: uppercase; }
+    .examples .tabheading li:first-of-type {
+      border-radius: 3px 0 0 0; }
+    .examples .tabheading li:last-of-type {
+      border-radius: 0 3px 0 0; }
+    .examples .tabheading li.selected {
+      background: #e0e0e0;
+      cursor: default; }
+
+.examples .example pre {
+  margin: 0;
+  border-color: #ccc;
+  border-radius: 0 3px 3px 3px; }
+
+section.request {
+  padding: 40px 0 100px !important; }
+  section.request h2 {
+    font-weight: 300;
+    font-style: 4em;
+    margin: 0 0 30px 0; }
+    section.request h2.GET {
+      color: #659BE0; }
+    section.request h2.POST {
+      color: #66E065; }
+    section.request h2.PUT {
+      color: #B265E0; }
+    section.request h2.DELETE {
+      color: #D83838; }
+  section.request table {
+    margin-top: 60px; }
+
+header > nav.navbar i {
+  font-size: 1.5em;
+  display: block; }
+
+header.banner {
+  margin-top: -20px;
+  background: #34495e;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px black; }
+  header.banner > .container {
+    padding: 60px 0 60px 0;
+    color: white; }
+    header.banner > .container h1 {
+      margin: 0 0 20px 0;
+      font-weight: 100;
+      font-size: 4em;
+      letter-spacing: 1px; }
+  header.banner .breadcrumbs {
+    margin: 0;
+    padding: 0; }
+    header.banner .breadcrumbs li {
+      list-style: none;
+      display: inline-block;
+      font-family: 'Source Code Pro', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important;
+      padding: 0 3px 0 0;
+      font-size: 1.2em; }
+      header.banner .breadcrumbs li::after {
+        content: '/';
+        padding: 0 0 0 5px;
+        color: #aaa; }
+  header.banner .methods {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 15px;
+    text-align: center;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-shadow: none; }
+    header.banner .methods a {
+      color: white; }
+      header.banner .methods a:hover {
+        text-decoration: none; }
+    header.banner .methods li {
+      padding: 3px 8px;
+      list-style: none;
+      background: white;
+      color: #444;
+      margin: 5px 0;
+      border-radius: 3px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      opacity: 0.8;
+      transition: opacity 0.1s; }
+      header.banner .methods li:hover {
+        opacity: 1; }
+      header.banner .methods li.GET {
+        background: #C9E8FF; }
+      header.banner .methods li.POST {
+        background: #A5E69D; }
+      header.banner .methods li.PUT {
+        background: #CEB5FF; }
+      header.banner .methods li.DELETE {
+        background: #FBA0A0; }
+
+footer#footer {
+  background: #34495E;
+  height: 400px;
+  position: relative; }
+  footer#footer footer {
+    background: #243342;
+    padding: 20px 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    color: #59718A; }
+    footer#footer footer a {
+      color: #59718A;
+      transition: color 0.1s; }
+      footer#footer footer a:hover {
+        color: #6984A0; }
+
+html, body {
+  font-family: 'Roboto', sans-serif; }
+
+section.border-bottom {
+  padding: 30px 0 40px 0;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 40px; }
+  section.border-bottom:last-of-type {
+    margin-bottom: 0; }
+
+section.light {
+  background: #eee; }
+
+pre, code {
+  font-size: 1.1em;
+  font-family: 'Source Code Pro', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important; }
+
+#search {
+  position: fixed;
+  box-sizing: content-box;
+  height: 100%;
+  width: 100%;
+  left: 100%;
+  bottom: 100%;
+  background: white;
+  transition: left 0.5s, bottom 0.5s; }
+  #search form {
+    width: 100%;
+    padding: 30px; }
+    #search form input {
+      outline: none;
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      display: block;
+      padding: 10px 20px;
+      font-size: 2em;
+      border: 0;
+      border-bottom: 4px solid #ccc; }
+  #search i.search-toggle {
+    display: block;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 0;
+    right: 14px;
+    font-size: 4em;
+    color: #555;
+    cursor: pointer; }
+  #search::before, #search::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 100vh solid white;
+    border-left: 100vw solid transparent; }
+  #search::before {
+    bottom: -100%; }
+  #search::after {
+    top: 0;
+    left: -100%; }
+  #search.active {
+    left: 0;
+    bottom: 0; }
+
 /*# sourceMappingURL=app.css.map */

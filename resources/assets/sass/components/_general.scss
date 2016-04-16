@@ -1,0 +1,87 @@
+html, body {
+  font-family: 'Roboto', sans-serif;
+}
+
+
+section {
+  &.border-bottom {
+    padding: 30px 0 40px 0;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 40px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  &.light {
+    background: #eee;
+  }
+}
+
+pre, code {
+  font-size: 1.1em;
+  font-family: 'Source Code Pro', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important;
+}
+
+#search {
+  position: fixed;
+  box-sizing: content-box;
+  height: 100%;
+  width: 100%;
+  left: 100%;
+  bottom: 100%;
+  background: white;
+  transition: left 0.5s, bottom 0.5s;
+
+  form {
+    width: 100%;
+    padding: 30px;
+
+    input {
+      outline: none;
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      display: block;
+      padding: 10px 20px;
+      font-size: 2em;
+      border: 0;
+      border-bottom: 4px solid #ccc;
+    }
+  }
+
+  i.search-toggle {
+    display: block;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 0;
+    right: 14px;
+    font-size: 4em;
+    color: #555;
+    cursor: pointer;
+  }
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 100vh solid white;
+    border-left: 100vw solid transparent;
+  }
+
+  &::before {
+    bottom: -100%;
+  }
+
+  &::after {
+    top: 0;
+    left: -100%;
+  }
+
+  &.active {
+    left: 0;
+    bottom: 0;
+  }
+}

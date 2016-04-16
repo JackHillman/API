@@ -1,1 +1,16 @@
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Import layouts
+@import "layouts/docs";
+@import "layouts/home";
+
+// Import components
+@import "components/header";
+@import "components/footer";
+@import "components/general";
+
+// Variables
+$get: #C9E8FF;
+$post: #A5E69D;
+$put: #CEB5FF;
+$delete: #FBA0A0;
