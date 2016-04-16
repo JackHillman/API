@@ -24,7 +24,7 @@ class Documentation extends Controller
 
   public function get_params($path)
   {
-    $path = ($path) ? file_get_contents($path . '/params.json') : null;
+    $path = ($path) ? file_get_contents($path . 'params.json') : null;
     if ($path) {
       return json_decode($path, true)['params'];
     }
