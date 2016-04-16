@@ -1,0 +1,16 @@
+{
+  "params": [
+    {
+      "id": "id",
+      "description": "This is the ID field, it is a primary key",
+      "type": "string",
+      "required": true
+    },
+    {
+      "id": "test",
+      "description": "This is a test field, it is not real",
+      "type": "boolean",
+      "required": false
+    }
+  ]
+}

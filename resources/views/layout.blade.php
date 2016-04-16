@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <title>{{ $title }} | API</title>
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/prism.css">
+    <script src="/scripts/prism.js"></script>
   </head>
   <body>
     <header>

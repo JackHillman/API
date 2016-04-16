@@ -4,7 +4,7 @@
   <h1>
     {{ $title }}
   </h1>
- {{!! $content !!}}
+ {!! $content !!}
 @endsection
 
 @section('docs')
@@ -24,23 +24,29 @@
         <strong>Type</strong>
       </th>
     </tr>
-    @foreach($parameters as $param)
-      <tr class="{{ ($param['optional']) ? 'optional' : 'required' }}">
-        <td>
-          {{ $param['title'] }}
-        </td>
-        <td>
-          {{ $param['desc'] }}
-        </td>
-        <td>
-          <var>{{ $param['type'] }}</var>
-        </td>
-      </tr>
-    @endforeach
-    @if($example['return'])
-      <pre>
-        {{ $example['return'] }}
-      </pre>
+    @if($parameters)
+      @foreach($parameters as $param)
+        <tr class="{{ ($param['required']) ? 'required' : 'optional' }}">
+          <td>
+            {{ $param['id'] }}
+          </td>
+          <td>
+            {{ $param['description'] }}
+          </td>
+          <td>
+            <var>{{ $param['type'] }}</var>
+          </td>
+        </tr>
+      @endforeach
+    @endif
+    @if($examples)
+      <div class="examples">
+        @foreach($examples as $example)
+          <h4>{{ $example['type'] }}</h4>
+          <pre class="{{ $example['type'] }}"><code class="language-{{ $example['type'] }}">{{ $example['example'] }}</code></pre>
+        @endforeach
+      </div>
+
     @endif
   </table>
 @endsection

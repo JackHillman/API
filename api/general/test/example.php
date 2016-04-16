@@ -1,13 +1,16 @@
-<? $test = 'Test'
-if ($test)
-{
-  return $test ?: 'Penis'
-}
+<?php
+$myvar;
+global $anothervar;
 
-function MyFunction($param)
+/**
+ * Test Class
+ */
+class ExampleClass extends BaseClass
 {
-  if (true) {
-    return false
+  public $args;
+
+  function __construct($arg)
+  {
+    $this->args = $args;
   }
-  return true
 }
