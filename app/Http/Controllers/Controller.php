@@ -79,4 +79,15 @@ class Controller extends BaseController
 
       return $formatted_links;
     }
+
+    protected static function create_description($path, $file='description.md')
+    {
+      $desc = $path . $file;
+      if (file_exists($desc)) {
+        $parsedown = new \Parsedown();
+        $desc = file_get_contents($desc);
+        $desc = $parsedown->text($desc);
+      } else { return null; }
+      return $desc;
+    }
 }

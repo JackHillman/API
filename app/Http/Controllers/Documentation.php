@@ -40,25 +40,16 @@ class Documentation extends Controller
 
     $requests = array();
     $requests = self::get_requests($apiPath);
-
-    $desc = $apiPath . 'description.md';
-    if (file_exists($desc)) {
-      $parsedown = new \Parsedown();
-      $desc = file_get_contents($desc);
-      $desc = $parsedown->text($desc);
-    }
-
+    $desc = parent::create_description($apiPath);
     $subnav = self::get_subnav($requests);
     $breadcrumbs = parent::create_breadcrumbs($apiPath);
 
     return view('documentation', [
       'title'         => ucfirst($api),
-      'documentation' => true,
-      'route'         => ucfirst($route),
       'description'   => $desc,
-      'requests'      => $requests,
       'subnav'        => $subnav,
       'breadcrumbs'   => $breadcrumbs,
+      'requests'      => $requests,
     ]);
   }
 }
