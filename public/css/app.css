@@ -5942,5 +5942,50 @@ pre, code {
   #search.active {
     left: 0;
     bottom: 0; }
+  #search .results-container {
+    margin-top: 100px; }
+    #search .results-container .results li {
+      position: relative;
+      padding: 10px 20px;
+      border-radius: 0 3px 3px 0;
+      transition: background 0.1s;
+      margin-bottom: 20px; }
+      #search .results-container .results li.api::before {
+        background: #04F199; }
+      #search .results-container .results li.category::before {
+        background: #04BAF1; }
+      #search .results-container .results li:hover {
+        background: #eee; }
+        #search .results-container .results li:hover::before {
+          opacity: 1; }
+      #search .results-container .results li a {
+        color: #444; }
+        #search .results-container .results li a h3 {
+          font-weight: 900;
+          letter-spacing: 1px;
+          margin: 0;
+          text-transform: capitalize; }
+        #search .results-container .results li a small {
+          margin-bottom: 10px;
+          display: block;
+          font-style: italic;
+          color: #777; }
+        #search .results-container .results li a p {
+          line-height: 1.5; }
+        #search .results-container .results li a *:first-child {
+          margin-top: 0; }
+        #search .results-container .results li a *:last-child {
+          margin-bottom: 0; }
+        #search .results-container .results li a:hover {
+          text-decoration: none; }
+      #search .results-container .results li::before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 5px;
+        opacity: 0.4;
+        top: 0;
+        left: 0;
+        transition: opacity 0.1s; }
 
 /*# sourceMappingURL=app.css.map */

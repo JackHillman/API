@@ -12,6 +12,10 @@
 */
 
 Route::get('/', 'Home@index');
+Route::get('/search/{term}', function($term) {
+  $search = new App\Http\Controllers\Search($term);
+  return $search->results;
+});
 
 Route::get('/{route}/{api?}', 'Documentation@get');
 

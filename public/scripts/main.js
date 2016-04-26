@@ -38,6 +38,23 @@ $(function() {
     });
   });
 
+  $('form').submit(function(e) {
+    e.preventDefault();
+    return false;
+  });
+
+  $('input[name="search"]').keydown(function(e) {
+    var results;
+
+    if (e.which == 13) {
+      $.get({
+        url: '/search/' + $(this).val(),
+        success: function(data) {
+          displaySearchResults(data);
+        }
+      });
+    }
+  });
 
   // Close search on esc
   $(document).keyup(function(e) {
@@ -64,6 +81,24 @@ $(function() {
     examples.hide();
     section.each(function() {
       $(this).find('.example').first().show();
+    });
+  }
+
+  function displaySearchResults(results) {
+    if ( ! results ) { return false; } // Return early is empty
+    var resultContainer = $('ul.results');
+    resultContainer.empty();
+
+    results.forEach(function(result) {
+      var output = '';
+
+      output += '<li class="'+result.result_type+'"><a href="'+result.url+'">';
+      output += '<h3>'+result.name+'</h3>';
+      output += '<small>'+result.url+'</small>';
+      // output += '<p>'+result.description+"</p>"; // Needs to be implemented first
+      output += '</a></li>';
+
+      resultContainer.append(output);
     });
   }
 });

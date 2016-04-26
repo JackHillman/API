@@ -61,8 +61,10 @@
       <form>
         <input type="text" name="search">
       </form>
-      <div class="results">
-
+      <div class="results-container container">
+        <ul class="results list-unstyled">
+          
+        </ul>
       </div>
     </div>
   </body>
