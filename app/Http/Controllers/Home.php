@@ -8,7 +8,7 @@ use App\Http\Requests;
 
 class Home extends Controller
 {
-    public function index()
+    public function get()
     {
       return view('index', [
         'title' => 'Home',

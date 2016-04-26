@@ -11,14 +11,15 @@
 |
 */
 
-Route::get('/', 'Home@index');
+Route::get('/', 'Home@get');
 Route::get('/search/{term}', function($term) {
   $search = new App\Http\Controllers\Search($term);
   return $search->results;
 });
 
-Route::get('/{route}/{api?}', 'Documentation@get');
+Route::get('/{route}', 'Listing@get');
 
+Route::get('/{route}/{api}', 'Documentation@get');
 
 Route::get('/{route}/{api}.{format}', 'API@get');
 Route::get('/{route}/{api}/{param?}.{format}', 'API@get');

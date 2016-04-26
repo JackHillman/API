@@ -5824,6 +5824,8 @@ header.banner {
         content: '/';
         padding: 0 0 0 5px;
         color: #aaa; }
+      header.banner .breadcrumbs li a {
+        color: white; }
   header.banner .methods {
     margin: 0;
     padding: 0;

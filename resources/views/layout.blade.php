@@ -26,28 +26,50 @@
           </ul>
         </div>
       </nav>
+
+      <div class="container-fluid">
+        <div class="row">
+          <article class="description">
+            <header class="banner">
+              <div class="container">
+                <div class="col-lg-10 col-lg-offset-1">
+                  <h1>
+                    {{ $title }}
+                  </h1>
+                  @if($breadcrumbs)
+                    <ul class="breadcrumbs">
+                      @foreach($breadcrumbs as $breadcrumb)
+                        <li><a href="{{ $breadcrumb['link'] }}">{{ $breadcrumb['title'] }}</a></li>
+                      @endforeach
+                    </ul>
+                  @endif
+                  @if($subnav)
+                    <ul class="methods">
+                      @foreach($subnav as $link)
+                        <a href="#{{ $link }}"><li class="{{ $link }}">{{ $link }}</li></a>
+                      @endforeach
+                    </ul>
+                  @endif
+                </div>
+              </div>
+            </header>
+            <section class="border-bottom light">
+              <div class="container">
+                <div class="row">
+                  <div class="col-lg-10 col-lg-offset-1">
+                    {!! $description !!}
+                  </div>
+                </div>
+              </div>
+            </section>
+          </article>
+        </div>
+      </div>
     </header>
     <main>
       <div class="container-fluid">
         <div class="row">
-          <article class="description">
-            @yield('description')
-          </article>
-
-          @if($documentation)
-            <article class="documentation">
-              @if($isapi)
-                <section class="api">
-                  @yield('docs')
-                </section>
-              @elseif($listing)
-                <section class="listing">
-                  @yield('listing')
-                </section>
-              @endif
-            </article>
-          @endif
-
+          @yield('main')
         </div>
       </div>
     </main>
@@ -63,7 +85,7 @@
       </form>
       <div class="results-container container">
         <ul class="results list-unstyled">
-          
+
         </ul>
       </div>
     </div>
