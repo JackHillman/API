@@ -59,7 +59,7 @@ class Result
       $this->result_type = 'category';
     }
 
-    $this->name = $api ?? $category;
+    $this->name = $api ?: $category;
     $this->url = $this->get_url();
     $this->name = strtolower(preg_replace('/[^A-Za-z0-9 ]/', '', $this->name));
     $this->term = strtolower(preg_replace('/[^A-Za-z0-9 ]/', '', $term));
@@ -98,7 +98,7 @@ class Result
           $count++;
         }
       } else {
-        $count += substr_count($string, $term) ?? 0;
+        $count += substr_count($string, $term) ?: 0;
       }
     }
     return $count;
