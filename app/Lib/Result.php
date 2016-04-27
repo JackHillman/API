@@ -98,7 +98,7 @@ class Result
           $count++;
         }
       } else {
-        $count += substr_count($string, $term) ?: 0;
+        $count += substr_count($string, $term) ?? 0;
       }
     }
     return $count;
