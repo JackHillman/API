@@ -21,7 +21,7 @@ class Search
   public function __construct($term, $path=null)
   {
     $this->search_term = $term;
-    $this->search_path = $path ?? base_path() . '/api/';
+    $this->search_path = $path ?: base_path() . '/api/';
 
     $listing = $this->get_listing();
     foreach ($listing as $result) {
