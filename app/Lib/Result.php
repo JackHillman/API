@@ -4,10 +4,10 @@ namespace App\Lib;
 
 class Result
 {
-  public $name;
+  public $search_term;
+  public $result_term;
   public $url;
-  public $term;
-  public $weight = array();
+  public $weights;
   public $result_type;
   protected $term_array = array();
 
@@ -15,23 +15,13 @@ class Result
    * @param string $path    : Define path of potential search result
    * @param string $term    : Define search term
    */
-  public function __construct($path, $term)
+  public function __construct($path, $search_term)
   {
     $path = str_replace('\\', '/', $path);
     $path = explode('/', $path);
-
-    foreach ( $path as $key=>$item ) {
-      if ( ! $item ) {
-        unset($path[$key]);
-      }
-    }
-
-    $this->term_array = $path;
-
-    $this->build_terms($term);
-    $this->get_weight();
-
-    // var_dump($this);
+    $this->term_array = self::clear_empty_array_elements($path);
+    $this->build_terms($search_term);
+    $this->weights = new Weights($this->search_term, $this->result_term);
   }
 
   /**
@@ -43,7 +33,7 @@ class Result
    *
    * @todo Return description from file.
    */
-  protected function build_terms($term)
+  protected function build_terms($search_term)
   {
     $array_end = count($this->term_array);
     $api;
@@ -59,78 +49,13 @@ class Result
       $this->result_type = 'category';
     }
 
-    $this->name = $api ?: $category;
+    $this->result_term = $api ?? $category;
     $this->url = $this->get_url();
-    $this->name = strtolower(preg_replace('/[^A-Za-z0-9 ]/', '', $this->name));
-    $this->term = strtolower(preg_replace('/[^A-Za-z0-9 ]/', '', $term));
+    $this->result_term = strtolower(preg_replace('/[^A-Za-z0-9 ]/', '', $this->result_term));
+    $this->search_term = strtolower(preg_replace('/[^A-Za-z0-9 ]/', '', $search_term));
   }
 
-  /**
-   * Gets search ranking (weight) from search term.
-   *
-   * Search weights are returned as array. As follows:
-   * [
-   *  ['entire'] => int           : Is term exactly result
-   *  ['string'] => int           : Occurances of complete words
-   *  ['character'] => int        : Occurances of charaters in string
-   * ]
-   */
-  protected function get_weight()
-  {
-    $char_array = array_diff(str_split($this->term), array(' '));
-    $string_array = explode(' ', $this->term);
-    $this->weight = $this->get_weights($this->term, $this->name, $string_array, $char_array);
-  }
 
-  /**
-   * Helper function to get count of occurances of $string in $array
-   *
-   * @param array $array   : Array to use to search (Search Result)
-   * @param string $string : String to search through (Search Term)
-   *
-   * @return int $count    : Integer of number of occurences
-   */
-  protected function get_array_weight($array, $string) {
-    $count = 0;
-    foreach ($array as $term) {
-      if ( strlen($term) > 1 ) {
-        if ( $term == $string ) {
-          $count++;
-        }
-      } else {
-        $count += substr_count($string, $term) ?? 0;
-      }
-    }
-    return $count;
-  }
-
-  /**
-   * Get weights from search term/result combo
-   *
-   * Search weights are returned as follows:
-   * [
-   *  ['entire'] => int           : Is term exactly result
-   *  ['string'] => int           : Occurances of complete words
-   *  ['character'] => int        : Occurances of charaters in string
-   * ]
-   *
-   * @param string $search_term           : Term being search for
-   * @param string $search_string         : Search result term
-   * @param array $search_string_array    : Array of string in search
-   * @param array $search_char_array      : Array of chars in search
-   *
-   * @return Array $weights
-   */
-  protected function get_weights($search_term, $search_string, $search_string_array, $search_char_array)
-  {
-    $weights = array();
-
-    $weights['character'] = $this->get_array_weight($search_char_array, $search_string);
-    $weights['string'] = $this->get_array_weight($search_string_array, $search_string);
-    $weights['entire'] = ($search_term == $search_string) ? 1 : 0 ;
-
-    return $weights;
-  }
 
   /**
    * Get URL for path helper function
@@ -146,5 +71,15 @@ class Result
       $path = '/' . $this->term_array[$array_end] . '/';
     }
     return $path;
+  }
+
+  private static function clear_empty_array_elements($array)
+  {
+    foreach ( $array as $key=>$item ) {
+      if ( ! $item ) {
+        unset($array[$key]);
+      }
+    }
+    return $array;
   }
 }

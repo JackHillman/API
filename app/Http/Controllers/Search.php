@@ -22,13 +22,8 @@ class Search
   {
     $this->search_term = $term;
     $this->search_path = $path ?? base_path() . '/api/';
-
     $listing = $this->get_listing();
-    foreach ($listing as $result) {
-      $result = new Result($result, $this->search_term);
-      $results[] = $result;
-    }
-    $this->results = $results;
+    $this->results = $this->get_results($listing);
     $this->order_results();
   }
 
@@ -63,19 +58,29 @@ class Search
   protected function order_results()
   {
     usort($this->results, function($a, $b) {
-      if ( $a->weight['entire'] == $b->weight['entire'] ) {
-        if ( $a->weight['string'] == $b->weight['string'] ) {
-          if ( $a->weight['character'] == $b->weight['character'] ) {
+      if ( $a->weights->entire == $b->weights->entire ) {
+        if ( $a->weights->words == $b->weights->words ) {
+          if ( $a->weights->characters == $b->weights->characters ) {
             return 0; // Return 0 if exactly the same
           } else {
-            return ( $a->weight['character'] > $b->weight['character'] ) ? -1 : 1;
+            return ( $a->weights->characters > $b->weights->characters ) ? -1 : 1;
           }
         } else {
-          return ( $a->weight['string'] > $b->weight['string'] ) ? -1 : 1;
+          return ( $a->weights->words > $b->weights->words ) ? -1 : 1;
         }
       } else {
-        return ( $a->weight['entire'] > $b->weight['entire'] ) ? -1 : 1;
+        return ( $a->weights->entire > $b->weights->entire ) ? -1 : 1;
       }
     });
+  }
+
+  protected function get_results($listing)
+  {
+    $results = array();
+    foreach ($listing as $result) {
+      $result = new Result($result, $this->search_term);
+      $results[] = $result;
+    }
+    return $results;
   }
 }

@@ -93,7 +93,7 @@ $(function() {
       var output = '';
 
       output += '<li class="'+result.result_type+'"><a href="'+result.url+'">';
-      output += '<h3>'+result.name+'</h3>';
+      output += '<h3>'+result.result_term+'</h3>';
       output += '<small>'+result.url+'</small>';
       // output += '<p>'+result.description+"</p>"; // Needs to be implemented first
       output += '</a></li>';
