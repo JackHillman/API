@@ -50,6 +50,6 @@ class API
     foreach ($paths as $path) {
       $requests[] = new RequestType($path);
     }
-    $this->requests = $requests;
+    $this->requests = RequestType::sort_requests($requests);
   }
 }

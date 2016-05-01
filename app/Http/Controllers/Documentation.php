@@ -18,7 +18,7 @@ class Documentation extends Controller
       $request = new RequestType($path);
       $requests[] = $request;
     }
-    return $requests;
+    return RequestType::sort_requests($requests);
   }
 
   private static function get_subnav($requests)

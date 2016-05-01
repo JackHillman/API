@@ -10,6 +10,13 @@ class RequestType
   public $examples;
   public $endpoint;
 
+  private static $order = array(
+    'GET'     =>  0,
+    'POST'    =>  1,
+    'PUT'     =>  2,
+    'DELETE'  =>  3,
+  );
+
   public function __construct($path)
   {
     $this->type = strtoupper(basename($path));
@@ -43,5 +50,15 @@ class RequestType
       return json_decode($path, true)['params'];
     }
     return false;
+  }
+
+  public static function sort_requests($request_array) {
+    usort($request_array, function($a, $b) {
+      $a_order = self::$order[$a->type];
+      $b_order = self::$order[$b->type];
+
+      return $a_order <=> $b_order;
+    });
+    return $request_array;
   }
 }

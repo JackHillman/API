@@ -23,7 +23,7 @@ class Search
     $this->search_term = $term;
     $this->search_path = $path ?? base_path() . '/api/';
     $listing = $this->get_listing();
-    $this->results = $this->get_results($listing);
+    $this->get_results($listing);
     $this->order_results();
   }
 
@@ -34,22 +34,7 @@ class Search
    */
   protected function get_listing()
   {
-    $listing = array();
-    $cats = array_diff(scandir($this->search_path), array('.', '..'));
-
-    foreach ( $cats as $cat ) {
-      $path = '/' . $cat . '/';
-      $listing[] = $path;
-
-      $apis = array_diff(scandir($this->search_path . $path), array('.', '..'));
-
-      foreach ( $apis as $api ) {
-        $path = '/' . $cat . '/' . $api . '/';
-        $listing[] = $path;
-      }
-    }
-
-    return $listing;
+    return Controller::get_all_subfolders($this->search_path);;
   }
 
   /**
@@ -76,11 +61,15 @@ class Search
 
   protected function get_results($listing)
   {
-    $results = array();
     foreach ($listing as $result) {
-      $result = new Result($result, $this->search_term);
-      $results[] = $result;
+      if ( is_array($result) ) {
+        $this->get_results($result);
+      } else {
+        $result = new Result($result, $this->search_term);
+        if ( ! $result->is_request() ) {
+          $this->results[] = $result;
+        }
+      }
     }
-    return $results;
   }
 }

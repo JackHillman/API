@@ -111,4 +111,13 @@ class Controller extends BaseController
       $path = self::fix_path($path);
       return glob($path . '*', GLOB_ONLYDIR);
     }
+
+    public static function get_all_subfolders($path)
+    {
+      $folders = self::get_subfolders($path);
+      foreach ($folders as $folder) {
+        $folders[] = self::get_all_subfolders($folder);
+      }
+      return $folders;
+    }
 }
