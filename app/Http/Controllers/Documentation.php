@@ -44,6 +44,12 @@ class Documentation extends Controller
     $subnav = self::get_subnav($requests);
     $breadcrumbs = parent::create_breadcrumbs($apiPath);
 
+    if ( ! is_dir($apiPath) ) {
+      return view('404', [
+        'title'       => 'Sorry!'
+      ]);
+    }
+
     return view('documentation', [
       'title'         => ucfirst($api),
       'description'   => $desc,

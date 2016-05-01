@@ -26,30 +26,27 @@ class RequestType
 
   public function get_examples()
   {
-    $path = ($this->path) ? glob($this->path . '*example*.*') : null;
+    $path = glob($this->path . '*example*.*');
     $examples = array();
-    if ($path) {
-      foreach ($path as $example) {
-        $filetype = new \SplFileInfo($example);
-        $filetype = $filetype->getExtension();
-        $ex = array();
-        $ex['type'] = $filetype;
-        $ex['example'] = htmlentities(file_get_contents($example));
-        $examples[] = $ex;
-      }
-      $this->examples = $examples;
-      return $examples;
+
+    foreach ($path as $example) {
+      $filetype = new \SplFileInfo($example);
+      $filetype = $filetype->getExtension();
+      $ex = array();
+      $ex['type'] = $filetype;
+      $ex['example'] = htmlentities(file_get_contents($example));
+      $examples[] = $ex;
     }
-    return false;
+    $this->examples = $examples;
+    return $examples;
   }
 
   protected function get_params()
   {
-    $path = ($this->path) ? file_get_contents($this->path . 'params.json') : null;
-    if ($path) {
+    if ( file_exists($this->path) ) {
+      $path = file_get_contents($this->path . 'params.json');
       return json_decode($path, true)['params'];
     }
-    return false;
   }
 
   public static function sort_requests($request_array) {

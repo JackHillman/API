@@ -20,6 +20,12 @@ class Listing extends Controller
     $this->desc = parent::create_description($routePath);
     $this->apis = $this->get_apis($routePath);
 
+    if ( ! is_dir($routePath) ) {
+      return view('404', [
+        'title'       => 'Sorry!'
+      ]);
+    }
+
     return view('listing', [
       'title'         =>  ucfirst($route),
       'breadcrumbs'   => $this->breadcrumbs,
@@ -30,7 +36,7 @@ class Listing extends Controller
 
   private function get_apis($path)
   {
-    $apis;
+    $apis = array();
     $paths = parent::get_subfolders($path);
 
     foreach ( $paths as $api_path ) {
