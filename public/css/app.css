@@ -1341,7 +1341,7 @@ ol {
   ol ol {
     margin-bottom: 0; }
 
-.list-unstyled {
+.list-unstyled, .listing .card-container .card .requests {
   padding-left: 0;
   list-style: none; }
 
@@ -5793,6 +5793,69 @@ section.request {
       color: #D83838; }
   section.request table {
     margin-top: 60px; }
+
+.listing {
+  padding: 40px 0;
+  background: white; }
+  .listing .card-container .card {
+    display: block;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background: white;
+    float: left;
+    color: #666;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    transition: box-shadow 0.15s, margin 0.15s; }
+    .listing .card-container .card .requests {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      width: 100%;
+      padding: 0 !important; }
+      .listing .card-container .card .requests li {
+        height: 10px;
+        background: gray;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1; }
+        .listing .card-container .card .requests li.GET {
+          background: #659BE0; }
+        .listing .card-container .card .requests li.POST {
+          background: #66E065; }
+        .listing .card-container .card .requests li.PUT {
+          background: #B265E0; }
+        .listing .card-container .card .requests li.DELETE {
+          background: #D83838; }
+        .listing .card-container .card .requests li:first-child {
+          border-top-left-radius: 3px; }
+        .listing .card-container .card .requests li:last-child {
+          border-top-right-radius: 3px; }
+    .listing .card-container .card .card-contents {
+      padding-bottom: 10px; }
+      .listing .card-container .card .card-contents h1, .listing .card-container .card .card-contents h2, .listing .card-container .card .card-contents h3, .listing .card-container .card .card-contents h4, .listing .card-container .card .card-contents h5, .listing .card-container .card .card-contents h6, .listing .card-container .card .card-contents p, .listing .card-container .card .card-contents li {
+        font-size: 1em;
+        line-height: 1.4em;
+        padding-bottom: 10px; }
+        .listing .card-container .card .card-contents h1:last-child, .listing .card-container .card .card-contents h2:last-child, .listing .card-container .card .card-contents h3:last-child, .listing .card-container .card .card-contents h4:last-child, .listing .card-container .card .card-contents h5:last-child, .listing .card-container .card .card-contents h6:last-child, .listing .card-container .card .card-contents p:last-child, .listing .card-container .card .card-contents li:last-child {
+          padding-bottom: 0; }
+    .listing .card-container .card .card-footer {
+      background: #eee;
+      color: #999;
+      text-shadow: 0 1px 0 #efefef; }
+    .listing .card-container .card:hover {
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+      margin-top: -2px;
+      margin-bottom: 2px; }
+    .listing .card-container .card > * {
+      padding: 0 15px 8px; }
+    .listing .card-container .card > *:not(:first-child) {
+      padding-top: 7px;
+      border-top: 1px solid #eee; }
+  .listing .card-container * {
+    margin: 0; }
 
 header > nav.navbar i {
   font-size: 1.5em;

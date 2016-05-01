@@ -10,7 +10,7 @@
             <h2 class="{{ $request->type }}">
               {{ $request->endpoint }}
             </h2>
-            @if($request->examples)
+            @if( $request->get_examples() )
               <div class="examples">
                 <ul class="tabheading">
                   @foreach($request->examples as $index=>$example)

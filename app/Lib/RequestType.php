@@ -10,24 +10,14 @@ class RequestType
   public $examples;
   public $endpoint;
 
-  public function __construct($path, $type)
+  public function __construct($path)
   {
-    $this->type = strtoupper($type);
+    $this->type = strtoupper(basename($path));
     $this->path = $path.'/';
     $this->params = $this->get_params();
-    $this->examples = $this->get_examples();
   }
 
-  protected function get_params()
-  {
-    $path = ($this->path) ? file_get_contents($this->path . 'params.json') : null;
-    if ($path) {
-      return json_decode($path, true)['params'];
-    }
-    return false;
-  }
-
-  protected function get_examples()
+  public function get_examples()
   {
     $path = ($this->path) ? glob($this->path . '*example*.*') : null;
     $examples = array();
@@ -40,7 +30,17 @@ class RequestType
         $ex['example'] = htmlentities(file_get_contents($example));
         $examples[] = $ex;
       }
+      $this->examples = $examples;
       return $examples;
+    }
+    return false;
+  }
+
+  protected function get_params()
+  {
+    $path = ($this->path) ? file_get_contents($this->path . 'params.json') : null;
+    if ($path) {
+      return json_decode($path, true)['params'];
     }
     return false;
   }

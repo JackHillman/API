@@ -12,7 +12,13 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
-    private static function get_title($string)
+    private static function fix_path($path)
+    {
+      $path .= (substr($path, -1) != '/') ? '/' : '';
+      return $path;
+    }
+
+    public static function get_title($string)
     {
       $temp = array();
       $return = array();
@@ -25,23 +31,30 @@ class Controller extends BaseController
       return implode(' ', $return);
     }
 
-    private static function get_handle($string)
+    public static function get_handle($string)
     {
       return strtolower(preg_replace('/[^\w+]/', '', $string));
     }
 
-    protected static function create_breadcrumbs($links, $items=2)
+    public static function get_url($path, $items=2)
+    {
+      $path = preg_split('/[\/\\\]/', $path);
+      foreach ( $path as $key=>$item ) {
+        if ( ! $item ) {
+          unset($path[$key]);
+        }
+      }
+      $path = array_splice($path, -$items, $items);
+
+      return $path;
+    }
+
+    public static function create_breadcrumbs($links, $items=2)
     {
       $formatted_links = array();
       $temp_array = array();
       $len;
-      $links = preg_split('/[\/\\\]/', $links);
-      foreach ( $links as $key=>$item ) {
-        if ( ! $item ) {
-          unset($links[$key]);
-        }
-      }
-      $links = array_splice($links, -$items, $items);
+      $links = self::get_url($links, $items);
 
       foreach ( $links as $index=>$crumb ) {
         if ($index == 0) {
@@ -69,7 +82,7 @@ class Controller extends BaseController
       return $formatted_links;
     }
 
-    protected static function create_subnav($links)
+    public static function create_subnav($links)
     {
       $formatted_links = array();
 
@@ -80,8 +93,10 @@ class Controller extends BaseController
       return $formatted_links;
     }
 
-    protected static function create_description($path, $file='description.md')
+    public static function create_description($path, $file='description.md')
     {
+      $path = self::fix_path($path);
+
       $desc = $path . $file;
       if (file_exists($desc)) {
         $parsedown = new \Parsedown();
@@ -89,5 +104,11 @@ class Controller extends BaseController
         $desc = $parsedown->text($desc);
       } else { return null; }
       return $desc;
+    }
+
+    public static function get_subfolders($path)
+    {
+      $path = self::fix_path($path);
+      return glob($path . '*', GLOB_ONLYDIR);
     }
 }

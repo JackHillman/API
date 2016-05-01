@@ -12,10 +12,10 @@ class Documentation extends Controller
 
   private static function get_requests($path)
   {
-    $paths = glob($path.'*', GLOB_ONLYDIR);
+    $paths = parent::get_subfolders($path);
     $requests = array();
     foreach ($paths as $path) {
-      $request = new RequestType($path, basename($path));
+      $request = new RequestType($path);
       $requests[] = $request;
     }
     return $requests;
