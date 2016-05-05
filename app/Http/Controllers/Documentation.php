@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Lib\RequestType;
+use App\Lib\Page;
 use App\Http\Requests;
 
 class Documentation extends Controller
@@ -12,13 +13,24 @@ class Documentation extends Controller
 
   private static function get_requests($path)
   {
-    $paths = parent::get_subfolders($path);
+    $paths = Page::get_subfolders($path);
     $requests = array();
     foreach ($paths as $path) {
       $request = new RequestType($path);
       $requests[] = $request;
     }
     return RequestType::sort_requests($requests);
+  }
+
+  private static function create_subnav($links)
+  {
+    $formatted_links = array();
+
+    foreach($links as $link) {
+      $formatted_links[] = strtoupper($link['title']);
+    }
+
+    return $formatted_links;
   }
 
   private static function get_subnav($requests)
@@ -29,32 +41,19 @@ class Documentation extends Controller
       $temp['title'] = $request->type;
       $temp_array[] = $temp;
     }
-    return parent::create_subnav($temp_array);
+    return self::create_subnav($temp_array);
   }
 
   public function get(Request $request, $route, $api, $param=null)
   {
-    $path = base_path();
-    $routePath = $path . '/api/' . $route . '/';
-    $apiPath = $routePath . $api . '/';
-
+    $page = new Page($request->path());
     $requests = array();
-    $requests = self::get_requests($apiPath);
-    $desc = parent::create_description($apiPath);
+    $requests = self::get_requests($page->path());
     $subnav = self::get_subnav($requests);
-    $breadcrumbs = parent::create_breadcrumbs($apiPath);
-
-    if ( ! is_dir($apiPath) ) {
-      return view('404', [
-        'title'       => 'Sorry!'
-      ]);
-    }
 
     return view('documentation', [
-      'title'         => ucfirst($api),
-      'description'   => $desc,
+      'page'          => $page,
       'subnav'        => $subnav,
-      'breadcrumbs'   => $breadcrumbs,
       'requests'      => $requests,
     ]);
   }

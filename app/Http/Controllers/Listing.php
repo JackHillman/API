@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Lib\API;
+use App\Lib\Listing;
+use App\Lib\Page;
 
 class Listing extends Controller
 {
@@ -14,35 +15,10 @@ class Listing extends Controller
 
   public function get(Request $request, $route)
   {
-    $path = base_path();
-    $routePath = $path . '/api/' . $route . '/';
-    $this->breadcrumbs = parent::create_breadcrumbs($routePath, 1);
-    $this->desc = parent::create_description($routePath);
-    $this->apis = $this->get_apis($routePath);
-
-    if ( ! is_dir($routePath) ) {
-      return view('404', [
-        'title'       => 'Sorry!'
-      ]);
-    }
+    $page = new Listing($request->path());
 
     return view('listing', [
-      'title'         =>  ucfirst($route),
-      'breadcrumbs'   => $this->breadcrumbs,
-      'description'   => $this->desc,
-      'apis'          => $this->apis,
+      'page'          => $page,
     ]);
-  }
-
-  private function get_apis($path)
-  {
-    $apis = array();
-    $paths = parent::get_subfolders($path);
-
-    foreach ( $paths as $api_path ) {
-      $apis[] = new API($api_path);
-    }
-
-    return $apis;
   }
 }

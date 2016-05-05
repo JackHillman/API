@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lib\Result;
+use App\Lib\Page;
 use App\Http\Requests;
 
 class Search
@@ -34,7 +35,7 @@ class Search
    */
   protected function get_listing()
   {
-    return Controller::get_all_subfolders($this->search_path);;
+    return Page::get_subfolders($this->search_path, true);;
   }
 
   /**

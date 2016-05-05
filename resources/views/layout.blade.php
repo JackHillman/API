@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{{ $title }} | API</title>
+    <title>{{ $page->title() }} | API</title>
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/prism.css">
     <script src="/scripts/prism.js"></script>
@@ -34,12 +34,12 @@
               <div class="container">
                 <div class="col-lg-10 col-lg-offset-1">
                   <h1>
-                    {{ $title }}
+                    {{ $page->title() }}
                   </h1>
-                  @if(! empty($breadcrumbs) )
+                  @if(! empty($page->breadcrumbs()) )
                     <ul class="breadcrumbs">
-                      @foreach($breadcrumbs as $breadcrumb)
-                        <li><a href="{{ $breadcrumb['link'] }}">{{ $breadcrumb['title'] }}</a></li>
+                      @foreach($page->breadcrumbs() as $breadcrumb)
+                        <li><a href="{{ $breadcrumb->url() }}">{{ $breadcrumb->title() }}</a></li>
                       @endforeach
                     </ul>
                   @endif
@@ -53,12 +53,12 @@
                 </div>
               </div>
             </header>
-            @if( ! empty($description) )
+            @if( ! empty($page->description()) )
               <section class="border-bottom light">
                 <div class="container">
                   <div class="row">
                     <div class="col-lg-10 col-lg-offset-1">
-                      {!! $description !!}
+                      {!! $page->description() !!}
                     </div>
                   </div>
                 </div>

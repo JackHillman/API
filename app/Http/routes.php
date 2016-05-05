@@ -17,9 +17,11 @@ Route::get('/search/{term}', function($term) {
   return $search->results;
 });
 
-Route::get('/{route}', 'Listing@get');
+Route::get('/{route}', 'Listing@get')
+->middleware('exists');
 
-Route::get('/{route}/{api}', 'Documentation@get');
+Route::get('/{route}/{api}', 'Documentation@get')
+->middleware('exists');
 
 Route::get('/{route}/{api}.{format}', 'API@get');
 Route::get('/{route}/{api}/{param?}.{format}', 'API@get');
